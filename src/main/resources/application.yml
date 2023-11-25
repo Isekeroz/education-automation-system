@@ -1,0 +1,78 @@
+server:
+  port: ${SERVER_PORT:2323}
+
+management:
+  endpoint:
+    health:
+      show-details: ${SHOW_HEALTH_CHECK_DETAILS:always}
+  endpoints:
+    enabled-by-default: ${MANAGEMENT_ENABLED:true}
+    web:
+      exposure:
+        include: '*'
+      cors:
+        allowed-origins: '*'
+
+spring:
+  application:
+    name: education-automation-system
+  main:
+    allow-bean-definition-overriding: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    driver-class-name: ${DATASOURCE_DRIVER:org.h2.Driver}
+    url: ${DB_URL:jdbc:h2:mem:testdb}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:password}
+    tomcat:
+      test-while-idle: true
+      test-on-borrow: true
+      validation-query: ${VALIDATION_QUERY:select 1}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: ${DB_POOL_MIN_IDLE:1}
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:5}
+      idle-timeout: ${DB_POOL_IDLE_TIMEOUT:10000}
+      pool-name: ${DB_POOL_NAME:JpaHikariCP}
+      max-lifetime: ${DB_POOL_MAX_LIFETIME:2000000}
+      connection-timeout: ${DB_POOL_CONNECTION_TIMEOUT:30000}
+  sql:
+    init:
+      schema-locations: ${DB_SCHEMA_LOCATIONS:}
+      mode: ${DB_SQL_INIT_MODE:never}
+      platform: ${DATASOURCE_PLATFORM:h2}
+      encoding: UTF-8
+  jpa:
+    show-sql: ${DB_SHOW_SQL:true}
+    generate-ddl: ${DB_GENERATE_DDL:false}
+    properties:
+      javax:
+        persistence:
+          create-database-schemas: ${DB_SCHEMA_CREATE_ENABLED:false}
+          sharedCache:
+            mode: ${DB_SHARED_CACHE_MODE:ALL}
+      hibernate:
+        format_sql: ${DB_FORMAT_SQL:false}
+        generate_statistics: ${DB_GENERATE_STATISTICS:false}
+        default_schema: ${DB_SCHEMA:}
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          time_zone: UTC
+          batch_size: ${DB_JDBC_BATCH_SIZE:20}
+        batch_versioned_data: ${DB_BATCH_VERSIONED_DATA:true}
+        order_inserts: ${DB_ORDER_INSERTS:true}
+        order_updates: ${DB_ORDER_UPDATES:true}
+        dialect: org.hibernate.dialect.H2Dialect
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 500
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: ${DDL_AUTO_TYPE:create}
+    open-in-view: false
