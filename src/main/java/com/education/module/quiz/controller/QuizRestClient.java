@@ -8,6 +8,7 @@ import com.education.module.quiz.model.view.QuizView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +25,9 @@ public interface QuizRestClient {
                                    @JsonView(QuizView.Command.class) QuizModel quizModel);
 
     @JsonView(QuizView.Query.class)
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @PutMapping
-    ResponseEntity<QuizModel> update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                                     @NotNull @RequestBody
+    ResponseEntity<QuizModel> update(@Valid @NotNull @RequestBody
                                      @JsonView(QuizView.Command.class) QuizModel quizModel);
 
     @PostMapping(path = "/question")

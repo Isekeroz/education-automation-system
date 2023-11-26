@@ -43,6 +43,7 @@ dependencies {
     implementation(
             [
                     'org.slf4j:slf4j-api',
+                    'com.fasterxml.jackson.datatype:jackson-datatype-jsr310',
                     'org.apache.commons:commons-lang3',
                     'org.apache.commons:commons-collections4',
                     'com.fasterxml.jackson.core:jackson-annotations',
@@ -109,6 +110,30 @@ dependencies {
             ]
     )
     // Data Access
+
+    // Test
+    testImplementation(
+            [
+                    'org.junit.jupiter:junit-jupiter-api',
+                    'org.junit.platform:junit-platform-suite-engine',
+                    'org.springframework.boot:spring-boot-starter-test'
+            ]
+    )
+
+    testRuntimeOnly(
+            [
+                    'org.junit.jupiter:junit-jupiter-engine'
+            ]
+    )
+    // Test
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+    }
+    useJUnitPlatform()
+    include '**/EducationTestSuite.class'
 }
 
 springBoot {

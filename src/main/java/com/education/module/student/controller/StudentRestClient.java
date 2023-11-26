@@ -10,6 +10,7 @@ import com.education.module.student.model.view.StudentView;
 import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,9 +27,9 @@ public interface StudentRestClient {
                                       @JsonView(StudentView.Command.class) StudentModel studentModel);
 
     @JsonView(StudentView.Query.class)
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @PutMapping
-    ResponseEntity<StudentModel> update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                                        @NotNull @RequestBody
+    ResponseEntity<StudentModel> update(@Valid @NotNull @RequestBody
                                         @JsonView(StudentView.Command.class) StudentModel studentModel);
 
     @PostMapping(path = "/quiz")

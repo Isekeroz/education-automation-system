@@ -14,6 +14,7 @@ import com.education.module.quiz.repository.QuizQuestionRepository;
 import com.education.module.quiz.repository.QuizRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -53,9 +54,9 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @CacheEvict(value = {QUIZ_CACHE_NAME, QUIZ_QUESTION_CACHE_NAME}, allEntries = true)
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @Override
-    public QuizModel update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                            @NotNull QuizModel quizModel) {
+    public QuizModel update(@Valid @NotNull QuizModel quizModel) {
         return save(quizModel);
     }
 

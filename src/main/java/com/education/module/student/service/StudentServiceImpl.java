@@ -17,6 +17,7 @@ import com.education.module.student.repository.StudentRepository;
 import com.querydsl.core.BooleanBuilder;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -60,9 +61,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @CacheEvict(value = {STUDENT_CACHE_NAME}, allEntries = true)
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @Override
-    public StudentModel update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                               @NotNull StudentModel studentModel) {
+    public StudentModel update(@Valid @NotNull StudentModel studentModel) {
         return save(studentModel);
     }
 

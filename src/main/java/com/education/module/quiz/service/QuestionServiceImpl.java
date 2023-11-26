@@ -9,6 +9,7 @@ import com.education.module.quiz.model.query.QuestionQueryModel;
 import com.education.module.quiz.repository.QuestionRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -40,9 +41,9 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @CacheEvict(value = {QUESTION_CACHE_NAME}, allEntries = true)
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @Override
-    public QuestionModel update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                                @NotNull QuestionModel questionModel) {
+    public QuestionModel update(@Valid @NotNull QuestionModel questionModel) {
         return save(questionModel);
     }
 

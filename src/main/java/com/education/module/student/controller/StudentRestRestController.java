@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -51,9 +52,9 @@ public class StudentRestRestController implements StudentRestClient {
     @Operation(
             summary = "Update endpoint.",
             description = "The endpoint that enables updating")
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
     @Override
-    public ResponseEntity<StudentModel> update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                                               @NotNull @RequestBody
+    public ResponseEntity<StudentModel> update(@Valid @NotNull @RequestBody
                                                @JsonView(StudentView.Command.class) StudentModel studentModel) {
         return ResponseEntity.ok(studentService.update(studentModel));
     }

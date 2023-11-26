@@ -8,6 +8,7 @@ import com.education.module.student.model.StudentQuizResultModel;
 import com.education.module.student.model.query.StudentQueryModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 
@@ -18,8 +19,8 @@ public interface StudentService {
 
     StudentModel save(@Valid @NotNull StudentModel studentModel);
 
-    StudentModel update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                        @NotNull StudentModel studentModel);
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
+    StudentModel update(@Valid @NotNull StudentModel studentModel);
 
     void addQuiz(@Valid @NotNull StudentQuizModel studentQuizModel);
 

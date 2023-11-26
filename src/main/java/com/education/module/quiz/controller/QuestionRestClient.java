@@ -5,6 +5,7 @@ import com.education.module.quiz.model.QuestionModel;
 import com.education.module.quiz.model.query.QuestionQueryModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,8 +18,8 @@ public interface QuestionRestClient {
     ResponseEntity<QuestionModel> save(@Valid @NotNull @RequestBody QuestionModel questionModel);
 
     @PutMapping
-    ResponseEntity<QuestionModel> update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                                         @NotNull @RequestBody QuestionModel questionModel);
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
+    ResponseEntity<QuestionModel> update(@Valid @NotNull @RequestBody QuestionModel questionModel);
 
     @DeleteMapping(path = "/by-id/{id}")
     ResponseEntity<Void> deleteById(@PathVariable(value = "id") long id);

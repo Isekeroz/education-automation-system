@@ -6,6 +6,7 @@ import com.education.module.quiz.model.QuizQuestionModel;
 import com.education.module.quiz.model.query.QuizQueryModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 
@@ -16,8 +17,8 @@ public interface QuizService {
 
     QuizModel save(@Valid @NotNull QuizModel quizModel);
 
-    QuizModel update(@Validated(value = {EducationConstraintValidationGroups.ModifyingOperation.class})
-                     @NotNull QuizModel quizModel);
+    @Validated(value = {Default.class, EducationConstraintValidationGroups.ModifyingOperation.class})
+    QuizModel update(@Valid @NotNull QuizModel quizModel);
 
     void addQuestion(@Valid @NotNull QuizQuestionModel quizQuestionModel);
 
