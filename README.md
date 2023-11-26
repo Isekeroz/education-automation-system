@@ -1,28 +1,44 @@
-# Getting Started
+# Education Automation System
 
-### Reference Documentation
+### Introduction
 
-For further reference, please consider the following sections:
+An education automation system that allows students to solve tests.
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.0/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.0/gradle-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#using.devtools)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.2.0/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
+The system provides rest services for CRUD operations for students, quizzes and questions. By adding questions to the
+question bank, these questions can be assigned to the desired quizzes. The questions have been added with three answer
+options and one correct answer.
 
-### Guides
+Students can be assigned tests on specific dates or indefinitely. Only active tests can be assigned to students.
 
-The following guides illustrate how to use some features concretely:
+The test is completed by answering the questions in the test with the `/student/answer-quiz` endpoint. The student's
+test results can be queried with the `/student/result-quiz/{studentId}/{quizId}` endpoint.
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+### Getting Started
 
-### Additional Links
+#### Versions
 
-These additional references should also help you:
+* Java 17
+* Spring 3.2.0
+* Gradle 8.4
+* Database -> H2
+* Cache -> Caffeine
+* Test -> JUnit + Suite
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+#### Cloning
+
+```$ git clone https://github.com/Isekeroz/education-automation-system.git```
+
+#### Swagger
+
+http://localhost:2323/swagger-ui/index.html
+
+#### Database
+
+http://localhost:2323/h2-console
+
+Username: sa
+
+Password: password
+
+
 
